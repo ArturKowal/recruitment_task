@@ -16,13 +16,14 @@ import java.util.List;
 import static io.getint.recruitment_task.ticketObject.NameHolder.*;
 
 public class JiraTicketResolver extends JiraClient {
-    private final Integer count;
-    private final String projectKey;
+    private static final String RESULT_LIMIT = "&maxResults=";
     private static final String JQL_QUERY = "project = %s ORDER BY created DESC";
     private static final String PATH = "/rest/api/2/search?jql=";
-    private static final String RESULT_LIMIT = "&maxResults=";
-    public JiraTicketResolver(int count, String projectKey) {
-        this.count = count;
+    private final Integer numberOfTickets;
+    private final String projectKey;
+
+    public JiraTicketResolver(Integer numberOfTickets, String projectKey) {
+        this.numberOfTickets = numberOfTickets;
         this.projectKey = projectKey;
     }
 
@@ -36,8 +37,7 @@ public class JiraTicketResolver extends JiraClient {
 
     protected String resolveEndpoint() {
         String jql = String.format(JQL_QUERY, projectKey);
-        String encodedJql = encodeValue(jql);
-        return JIRA_URL + PATH + encodedJql + RESULT_LIMIT + count;
+        return JIRA_URL + PATH + encodeValue(jql) + RESULT_LIMIT + numberOfTickets;
     }
 
     private static JSONArray resolveIssuesList(JSONObject response) {
@@ -65,8 +65,7 @@ public class JiraTicketResolver extends JiraClient {
             JSONObject issue = issues.getJSONObject(i);
             JSONObject fields = issue.getJSONObject(FIELDS);
 
-            TicketInfoHolder ticket = collectTicketInfo(issue, fields);
-            ticketsDtoList.add(ticket);
+            ticketsDtoList.add(collectTicketInfo(issue, fields));
         }
         return ticketsDtoList;
     }

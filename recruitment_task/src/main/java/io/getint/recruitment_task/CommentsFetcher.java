@@ -57,7 +57,7 @@ public class CommentsFetcher extends JiraClient {
     private String prepareComment(JSONObject comment) {
         return QUOTE_CHAR +
                 AUTHOR + PRESENTED + comment.getJSONObject(AUTHOR).getString(DISPLAY_NAME) +
-                ", " + CREATED + PRESENTED + comment.getString(CREATED) + NEW_LINE_CHAR +
+                COMMA + CREATED + PRESENTED + comment.getString(CREATED) + NEW_LINE_CHAR +
                 QUOTE_CHAR + comment.getString(BODY);
     }
 

@@ -12,6 +12,7 @@ public class NameHolder {
     public static final String SUMMARY = "summary";
     public static final String ERROR_MESSAGES = "errorMessages";
     public static final String EMPTY_STRING = "";
+    public static final String COMMA = ", ";
     public static final String COMMENTS = "comments";
     public static final String BODY = "body";
     public static final String DISPLAY_NAME = "displayName";

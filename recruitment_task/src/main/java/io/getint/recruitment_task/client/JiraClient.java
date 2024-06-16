@@ -40,7 +40,7 @@ public abstract class JiraClient {
         }
     }
 
-    public void setHeaders(HttpRequestBase request) {
+    private void setHeaders(HttpRequestBase request) {
         request.setHeader("Authorization", "Basic " + Base64.getEncoder().encodeToString((EMAIL + ":" + API_TOKEN).getBytes()));
         request.setHeader("Accept", "application/json");
         request.setHeader("Content-type", "application/json");
